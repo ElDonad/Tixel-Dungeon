@@ -8,16 +8,19 @@ vectorItem* initializeVectorItem(vectorItem* previous, vectorItem* next, void* c
 	toInitialize->current = current;
 	return toInitialize;
 }
+#warning "function initializeVectorItem done"
 
 void destroy(vector* toDestroy)
 {
-	vectorItem* itemToFree = toDestroy->first;
+	vectorItem* itemToFree;
+	itemToFree = toDestroy->first;
 	while (itemToFree->next != NULL)
 	{
 		free(itemToFree->current);
 	}
 	free(toDestroy);
 }
+#warning "function destroy done"
 
 vectorItem* getItemById(vector* toBeGot, unsigned int pos)
 {
@@ -30,7 +33,8 @@ vectorItem* getItemById(vector* toBeGot, unsigned int pos)
 	else
 	{
 		int loop;
-		vectorItem* toReturn = toBeGot->first;
+		vectorItem* toReturn;
+		toReturn = toBeGot->first;
 		for (loop = 0; loop < pos; loop++)
 		{
 			toReturn = toReturn->next;
@@ -38,21 +42,25 @@ vectorItem* getItemById(vector* toBeGot, unsigned int pos)
 		return toReturn;
 	}
 }
+#warning "function getItemById done"
 
 vector* initializeVector()
 {
-	vector* toInitialize = malloc(sizeof(vector));
+	vector* toInitialize;
+	toInitialize = malloc(sizeof(vector));
 	toInitialize->size = 0;
 	toInitialize->first = NULL;
 	toInitialize->last = NULL;
 	return toInitialize;
 }
+#warning "function initializeVector done"
 
 void* vec_push_back(vector* toBePushed, void* toPush)
 {
 	if (toBePushed->last == NULL && toBePushed->first == NULL)//si le vector est vide
 	{
-		vectorItem* toAdd = initializeVectorItem(NULL,NULL,toPush);
+		vectorItem* toAdd;
+		toAdd = initializeVectorItem(NULL,NULL,toPush);
 		dbg_sprintf(dbgout,"empty vector\n");
 		toBePushed->first = toAdd;
 		toBePushed->last = toAdd;
@@ -61,7 +69,8 @@ void* vec_push_back(vector* toBePushed, void* toPush)
 	}
 	else
 	{
-		vectorItem* toAdd = initializeVectorItem(toBePushed->last, NULL, toPush);
+		vectorItem* toAdd;
+		toAdd = initializeVectorItem(toBePushed->last, NULL, toPush);
 		toBePushed->last->next = toAdd;
 		toAdd->previous = toBePushed->last;
 		toBePushed->last = toAdd;
@@ -69,6 +78,7 @@ void* vec_push_back(vector* toBePushed, void* toPush)
 		return toPush;
 	}
 }
+#warning "function vec_push_back done"
 
 void* vec_getLast(vector* toBeGot)
 {
@@ -77,6 +87,7 @@ void* vec_getLast(vector* toBeGot)
 	else
 		{return NULL;}
 }
+#warning "function vec_getLast done"
 
 void* vec_getFirst(vector* toBeGot)
 {
@@ -85,10 +96,12 @@ void* vec_getFirst(vector* toBeGot)
 	else
 		{return NULL;}
 }
+#warning "function vec_getFirst done"
 
 void vec_pop_back(vector* toBePoped)
 {
-	vectorItem* toFree = toBePoped->last;
+	vectorItem* toFree;
+	toFree = toBePoped->last;
 	if (toBePoped->last != NULL)//si pas vide
 	{
 		if (toFree == toBePoped->first)// si il n'y a qu'un item
@@ -104,17 +117,20 @@ void vec_pop_back(vector* toBePoped)
 		free(toFree);
 	}
 }
+#warning "function vec_pop_back done"
 
 void* vec_getByPos(vector* toBeGot, unsigned int pos)
 {
 	return getItemById(toBeGot, pos)->current;
 }
+#warning "function vec_getByPos done"
 
 void* vec_push_front(vector* toBePushed, void* toPush)
 {
 	if (toBePushed->first == NULL)//si vector vide
 	{
-		vectorItem* toAdd = initializeVectorItem(NULL, NULL, toPush);
+		vectorItem* toAdd;
+		toAdd = initializeVectorItem(NULL, NULL, toPush);
 		toBePushed->first = toAdd;
 		toBePushed->last = toAdd;
 		toBePushed->size += 1;
@@ -122,7 +138,8 @@ void* vec_push_front(vector* toBePushed, void* toPush)
 	}
 	else//si au moins un item (donc déjà dans vector->first et vector->last)
 	{
-		vectorItem* toAdd = initializeVectorItem(NULL,toBePushed->first, toPush);
+		vectorItem* toAdd;
+		toAdd = initializeVectorItem(NULL,toBePushed->first, toPush);
 		toBePushed->first->previous = toAdd;
 		toAdd->next = toBePushed->first;
 		toBePushed->first = toAdd;
@@ -130,12 +147,14 @@ void* vec_push_front(vector* toBePushed, void* toPush)
 		return toPush;
 	}
 }
+#warning "function vec_push_front done"
 
 void vec_pop_front(vector* toBePoped)
 {
 	if (toBePoped->first != NULL)
 	{
-		vectorItem* toFree = toBePoped->first;
+		vectorItem* toFree;
+		toFree = toBePoped->first;
 		if (toBePoped->last = toFree)//si seulement 1 item : vider le tableau
 		{
 			toBePoped->last = NULL;
@@ -150,11 +169,13 @@ void vec_pop_front(vector* toBePoped)
 		toBePoped->size -= 1;
 	}
 }
+#warning function vec_pop_front done
 
 void* vec_insert(vector* toBeInserted, void* toInsert, unsigned int pos)
 {
 	vectorItem* toInsertBefore;
-	vectorItem* toBeInsertedBefore = getItemById(toBeInserted, pos);
+	vectorItem* toBeInsertedBefore;
+	toBeInsertedBefore = getItemById(toBeInserted, pos);
 	toInsertBefore = initializeVectorItem(NULL,NULL,toInsert);
 	if (toBeInsertedBefore != NULL)//si pas d'erreur (cas du tableau vide géré après)
 	{
@@ -185,10 +206,12 @@ void* vec_insert(vector* toBeInserted, void* toInsert, unsigned int pos)
 	return NULL;
 
 }
+#warning function vec_insert done
 
 void vec_delete(vector* toBeDeleted, unsigned int pos)
 {
-	vectorItem* toDelete = getItemById(toBeDeleted,pos);
+	vectorItem* toDelete;
+	toDelete = getItemById(toBeDeleted,pos);
 	if (toDelete != NULL)
 	{
 
@@ -215,3 +238,4 @@ void vec_delete(vector* toBeDeleted, unsigned int pos)
 		dbg_sprintf(dbgerr, "failed to delete object : bad initialization\n");
 	}
 }
+#warning function vec_delete done

@@ -10,3 +10,12 @@
 
 #include <graphx.h>
 
+#include "fontIndexes.h"
+
+typedef enum
+{
+    Center,
+    Left
+}Justification;
+
+void drawString(char* string, FontIndexes fontIndex, uint24_t posX, uint8_t posY, uint24_t marginX, uint8_t marginY, Justification justification);

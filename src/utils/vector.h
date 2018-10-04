@@ -30,6 +30,7 @@ typedef struct
 	vectorItem* last;
 	unsigned int size;
 }vector;
+
 vector* initializeVector();
 void destroy(vector*);
 
