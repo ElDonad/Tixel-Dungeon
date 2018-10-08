@@ -1,5 +1,5 @@
 @echo off
 cd src\gfx
-set CEDEV=E:\programmation\asm\c
-E:\programmation\asm\c\bin\convpng
+set CEDEV=F:\programmation\asm\c
+F:\programmation\asm\c\bin\convpng
 pause

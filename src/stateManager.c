@@ -18,6 +18,7 @@ void run(StateManager* toRun)
 	delta = 0;
 	while (toRun->mustStop == false)
 	{
+		kb_Scan();
 		toRunState->tick(delta, toRunState);
 		delta = (delta >= 255) ?  0 : delta + 1;
 		if (toRun->defaultState != currentState) return;

@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <keypadc.h>
+
 #include "state.h"
 #include "utils/vector.h"
 

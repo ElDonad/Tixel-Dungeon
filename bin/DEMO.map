@@ -4,75 +4,90 @@ bss      D031F6 D031FF D13FD6      9h
 header   D1A87F D1A882             3h
 icon     D1A882 D1A994           112h
 launcher D1A994 D1A9E4            50h
-libs     D1A9E4 D1AA1F            3Bh
-startup  D1AA1F D1AA5A            3Bh
-cleanup  D1AA5A D1AA6E            14h
-exit     D1AA6E D1AA74             6h
-code     D1AA74 D1B609           B95h
-data     D1B609 D1CC32          1629h
-strsect  D1CC32 D1CC32             0h
-text     D1CC32 D1CC32             0h
+libs     D1A9E4 D1AA39            55h
+startup  D1AA39 D1AA74            3Bh
+cleanup  D1AA74 D1AA88            14h
+exit     D1AA88 D1AA8E             6h
+code     D1AA8E D1B947           EB9h
+data     D1B947 D1CFAD          1666h
+strsect  D1CFAD D1CFB7             Ah
+text     D1CFB7 D1CFBF             8h
 
 Label                         Value
 ---------------------------   ------
 __findlibload               = D1A994
 __program_icon              = D1A887
 __program_description       = D1A989
-__ccleanup                  = D1AA5A
+__ccleanup                  = D1AA74
 _errno                      = D008DC
 _init                       = D1A882
-_exit                       = D1AA70
-__exit                      = D1AA4C
-__exitsp                    = D1AA4C
-__errsp                     = D1AA4C
-_arcs1_data                 = D1B62B
-_arcs2_data                 = D1BA2D
-_titleScreenSprites_pal     = D1CA2F
-_stop                       = D1AAE5
-_switchStateMain            = D1AAC2
-_main                       = D1AA74
+_exit                       = D1AA8A
+__exit                      = D1AA66
+__exitsp                    = D1AA66
+__errsp                     = D1AA66
+_TDFONTS_init               = D1AA8E
+_TDFONTS                    = D1B969
+_arcs1_data                 = D1B96F
+_arcs2_data                 = D1BD71
+_titleScreenSprites_pal     = D1CD73
+_stop                       = D1AB77
+_switchStateMain            = D1AB54
+_main                       = D1AB06
 _stateManager               = D031F6
-_drawButtonFrame            = D1AB17
-_drawButtonWithText         = D1AAEF
-_switchState                = D1ACB3
-_run                        = D1AC24
-_initializeStateManager     = D1ABF9
-_drawSlidingBackground      = D1AE27
-_initializeTitleScreenState = D1ADD3
-_tick                       = D1AD45
-_onSwitch                   = D1AD3C
-_onLaunch                   = D1AD0F
-_vec_delete                 = D1B332
-_vec_insert                 = D1B279
-_vec_pop_front              = D1B20D
-_vec_push_front             = D1B181
-_vec_getByPos               = D1B164
-_vec_pop_back               = D1B105
-_vec_getFirst               = D1B0DC
-_vec_getLast                = D1B0B3
-_vec_push_back              = D1B01B
-_initializeVector           = D1AFEE
-_getItemById                = D1AF91
-_destroy                    = D1AF58
-_initializeVectorItem       = D1AF26
-__frameset                  = D1B3F4
-__frameset0                 = D1B402
-_free                       = D1B40D
-__icmpzero                  = D1B50B
+_drawButtonFrame            = D1ABA9
+_drawButtonWithText         = D1AB81
+_getCharHeight              = D1AD48
+_getChar                    = D1ACE9
+_getCharSize                = D1AC8B
+_smallFontTableau           = D1CF73
+_drawString                 = D1AD53
+_switchState                = D1AFBC
+_run                        = D1AF29
+_initializeStateManager     = D1AEFE
+_drawSlidingBackground      = D1B165
+_initializeTitleScreenState = D1B111
+_tick                       = D1B04E
+_onSwitch                   = D1B045
+_onLaunch                   = D1B018
+_vec_delete                 = D1B670
+_vec_insert                 = D1B5B7
+_vec_pop_front              = D1B54B
+_vec_push_front             = D1B4BF
+_vec_getByPos               = D1B4A2
+_vec_pop_back               = D1B443
+_vec_getFirst               = D1B41A
+_vec_getLast                = D1B3F1
+_vec_push_back              = D1B359
+_initializeVector           = D1B32C
+_getItemById                = D1B2CF
+_destroy                    = D1B296
+_initializeVectorItem       = D1B264
+__frameset                  = D1B732
+__frameset0                 = D1B740
+_free                       = D1B74B
+__icmpzero                  = D1B849
 __idivs                     = 00013C
 __imuls                     = 000154
+__imul_b                    = 000158
+__imul_b                    = 000150
 __indcall                   = 00015C
 __irems                     = 00016C
-_malloc                     = D1B541
+_malloc                     = D1B87F
 __alloc_base                = D031F9
-__s_sbrk                    = D1B5E9
-_gfx_Begin                  = D1A9ED
-_gfx_End                    = D1A9F1
-_gfx_SetColor               = D1A9F5
-_gfx_SetPalette             = D1A9F9
-_gfx_SetDraw                = D1A9FD
-_gfx_SwapDraw               = D1AA01
-_gfx_FillRectangle_NoClip   = D1AA05
-_gfx_Sprite                 = D1AA09
-_gfx_TransparentSprite      = D1AA0D
-_kb_Scan                    = D1AA1B
+__s_sbrk                    = D1B927
+__setflag                   = 000218
+_strlen                     = 0000D4
+_ti_CloseAll                = D1A9EE
+_ti_Open                    = D1A9F2
+_ti_GetDataPtr              = D1A9F6
+_gfx_Begin                  = D1AA03
+_gfx_End                    = D1AA07
+_gfx_SetColor               = D1AA0B
+_gfx_SetPalette             = D1AA0F
+_gfx_SetDraw                = D1AA13
+_gfx_SwapDraw               = D1AA17
+_gfx_FillRectangle_NoClip   = D1AA1B
+_gfx_SetClipRegion          = D1AA1F
+_gfx_Sprite                 = D1AA23
+_gfx_TransparentSprite      = D1AA27
+_kb_Scan                    = D1AA35

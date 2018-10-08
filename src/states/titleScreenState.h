@@ -16,6 +16,9 @@
 
 #include "../gfx/titleScreenSprites.h"
 #include "../render/button.h"
+#include "../render/fontIndexes.h"
+#include "../render/fontRenderer.h"
+
 
 typedef enum
 {

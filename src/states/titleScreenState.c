@@ -18,18 +18,19 @@ void tick(uint8_t delta, State* args)
 {
 
 	uint8_t heightLoop, widthLoop;
+	char truc[] = "0121:23";
 
 	//gfx_FillScreen(1);
 	drawSlidingBackground(arcs1, delta / 4, 10, false);
 	drawSlidingBackground(arcs2, delta, 5, true);
 
 	drawButtonWithText(20,20,100,40,NULL,false);
+	drawString(&truc, SmallFontIndex, 24,24,80,2,LeftAlignment);
 	gfx_SwapDraw();
 
 
 
 	//tester les touches :
-	kb_Scan();
 	if (kb_Data[6] & kb_Enter)
 	{
 		gfx_End();

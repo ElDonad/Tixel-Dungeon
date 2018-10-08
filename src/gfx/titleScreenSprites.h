@@ -16,11 +16,6 @@ extern uint8_t arcs2_data[4098];
 #define arcs1_size 1026
 extern uint8_t arcs1_data[1026];
 #define arcs1 ((gfx_sprite_t*)arcs1_data)
-#define font_width 146
-#define font_height 20
-#define font_size 2922
-extern uint8_t font_data[2922];
-#define font ((gfx_sprite_t*)font_data)
 #define sizeof_titleScreenSprites_pal 512
 extern uint16_t titleScreenSprites_pal[256];
 
