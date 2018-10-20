@@ -8,10 +8,10 @@ libs     D1A9E4 D1AA39            55h
 startup  D1AA39 D1AA74            3Bh
 cleanup  D1AA74 D1AA88            14h
 exit     D1AA88 D1AA8E             6h
-code     D1AA8E D1B947           EB9h
-data     D1B947 D1CFAD          1666h
-strsect  D1CFAD D1CFB7             Ah
-text     D1CFB7 D1CFBF             8h
+code     D1AA8E D1B9F3           F65h
+data     D1B9F3 D1D059          1666h
+strsect  D1D059 D1D063             Ah
+text     D1D063 D1D06B             8h
 
 Label                         Value
 ---------------------------   ------
@@ -26,10 +26,10 @@ __exit                      = D1AA66
 __exitsp                    = D1AA66
 __errsp                     = D1AA66
 _TDFONTS_init               = D1AA8E
-_TDFONTS                    = D1B969
-_arcs1_data                 = D1B96F
-_arcs2_data                 = D1BD71
-_titleScreenSprites_pal     = D1CD73
+_TDFONTS                    = D1BA15
+_arcs1_data                 = D1BA1B
+_arcs2_data                 = D1BE1D
+_titleScreenSprites_pal     = D1CE1F
 _stop                       = D1AB77
 _switchStateMain            = D1AB54
 _main                       = D1AB06
@@ -39,42 +39,43 @@ _drawButtonWithText         = D1AB81
 _getCharHeight              = D1AD48
 _getChar                    = D1ACE9
 _getCharSize                = D1AC8B
-_smallFontTableau           = D1CF73
+_smallFontTableau           = D1D01F
 _drawString                 = D1AD53
+_findStateManager           = D1B018
 _switchState                = D1AFBC
 _run                        = D1AF29
 _initializeStateManager     = D1AEFE
-_drawSlidingBackground      = D1B165
-_initializeTitleScreenState = D1B111
-_tick                       = D1B04E
-_onSwitch                   = D1B045
-_onLaunch                   = D1B018
-_vec_delete                 = D1B670
-_vec_insert                 = D1B5B7
-_vec_pop_front              = D1B54B
-_vec_push_front             = D1B4BF
-_vec_getByPos               = D1B4A2
-_vec_pop_back               = D1B443
-_vec_getFirst               = D1B41A
-_vec_getLast                = D1B3F1
-_vec_push_back              = D1B359
-_initializeVector           = D1B32C
-_getItemById                = D1B2CF
-_destroy                    = D1B296
-_initializeVectorItem       = D1B264
-__frameset                  = D1B732
-__frameset0                 = D1B740
-_free                       = D1B74B
-__icmpzero                  = D1B849
+_drawSlidingBackground      = D1B211
+_initializeTitleScreenState = D1B1B6
+_tick                       = D1B0BB
+_onSwitch                   = D1B0B2
+_onLaunch                   = D1B085
+_vec_delete                 = D1B71C
+_vec_insert                 = D1B663
+_vec_pop_front              = D1B5F7
+_vec_push_front             = D1B56B
+_vec_getByPos               = D1B54E
+_vec_pop_back               = D1B4EF
+_vec_getFirst               = D1B4C6
+_vec_getLast                = D1B49D
+_vec_push_back              = D1B405
+_initializeVector           = D1B3D8
+_getItemById                = D1B37B
+_destroy                    = D1B342
+_initializeVectorItem       = D1B310
+__frameset                  = D1B7DE
+__frameset0                 = D1B7EC
+_free                       = D1B7F7
+__icmpzero                  = D1B8F5
 __idivs                     = 00013C
 __imuls                     = 000154
 __imul_b                    = 000158
 __imul_b                    = 000150
 __indcall                   = 00015C
 __irems                     = 00016C
-_malloc                     = D1B87F
+_malloc                     = D1B92B
 __alloc_base                = D031F9
-__s_sbrk                    = D1B927
+__s_sbrk                    = D1B9D3
 __setflag                   = 000218
 _strlen                     = 0000D4
 _ti_CloseAll                = D1A9EE

@@ -37,3 +37,15 @@ void switchState(StateManager* switchInto, StateType switchFrom, StateType switc
 		}
 	}
 }
+
+State* findStateManager(StateManager* findInto, StateType toFind)
+{
+	State* found;
+	uint8_t loop;
+	for (loop = 0; loop != findInto->states->size; ++loop)
+	{
+		if (((State*)vec_getByPos(findInto->states, loop))->type == toFind)
+			return (State*)vec_getByPos(findInto->states, loop);
+	}
+	return NULL;
+}

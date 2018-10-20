@@ -16,11 +16,12 @@
 
 typedef struct
 {
-	vector* states;
+	vector* states;//type : State*
 	uint8_t defaultState;
 	bool mustStop;
 }StateManager;
 
 StateManager* initializeStateManager();
+State* findStateManager(StateManager* findInto, StateType toFind);
 void switchState(StateManager* sitchInto, StateType switchFrom, StateType switchTo, void* args);
 void run(StateManager* toRun);

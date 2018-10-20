@@ -1,3 +1,6 @@
+#ifndef ITEM_H
+#define ITEM_H
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -35,3 +38,5 @@ typedef struct
     ItemType type;
     uint8_t maximumStackValue;
 }Item;
+
+#endif

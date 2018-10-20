@@ -14,7 +14,7 @@ void onSwitch(StateType from, void* args)
 
 }
 
-void tick(uint8_t delta, State* args)
+void tick(uint8_t delta, State* self)
 {
 
 	uint8_t heightLoop, widthLoop;
@@ -31,10 +31,17 @@ void tick(uint8_t delta, State* args)
 
 
 	//tester les touches :
-	if (kb_Data[6] & kb_Enter)
+	if (kb_Data[6] & kb_Clear)
 	{
 		gfx_End();
-		args->stop();
+		self->stop();
+	}
+	else if (kb_Data[6] & kb_Enter)//Passer en mode ingame
+	{
+		MainMenuToInGameStruct* machin;
+		machin = malloc(sizeof(MainMenuToInGameStruct));
+		machin->isNewRun = true;
+		self->switchState(MAIN_MENU_STATE, INGAME_STATE, machin);
 	}
 
 }
@@ -45,6 +52,7 @@ State* initializeTitleScreenState(void (*switchState)(StateType switchFrom, Stat
 	State* toReturn;
 	data = malloc(sizeof(TitleScreenData));
 	toReturn = malloc(sizeof(State));
+	toReturn->type = MAIN_MENU_STATE;
 	toReturn->launch = &onLaunch;
 	toReturn->switchState = switchState;
 	toReturn->switched = &onSwitch;

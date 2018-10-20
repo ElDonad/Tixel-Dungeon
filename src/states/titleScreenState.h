@@ -13,6 +13,7 @@
 #include <keypadc.h>
 
 #include "../state.h"
+#include "switchStateStructs.h"
 
 #include "../gfx/titleScreenSprites.h"
 #include "../render/button.h"
@@ -34,8 +35,8 @@ typedef struct
 }TitleScreenData;
 
 //Dans les fonctions suivantes, currentState désigne la struct State qui contient ces fonctions.
-void onLaunch(void* args);//args : State* currentState
+/*void onLaunch(void* args);//args : State* currentState
 void onSwitch(StateType switchFrom, void* args);//args : State* currentState
-void tick(uint8_t delta, State* args);//args : State* currentState
-
+void tick(uint8_t delta, State* self);//args : State* currentState
+*/
 State* initializeTitleScreenState(void (*switchState)(StateType switchFrom, StateType switchTo, void* data), void (*stop)());

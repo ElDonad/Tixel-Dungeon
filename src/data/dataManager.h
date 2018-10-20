@@ -10,10 +10,11 @@
 
 #include "../utils/vector.h"
 #include "inventory.h"
+#include "depth.h"
 
 #define PLAYER_INVENTORY_SIZE 24
 
-typedef enum 
+typedef enum
 {
 	Rogue,
 	Mage
@@ -24,26 +25,26 @@ typedef struct
     int currentLevel;
     Inventory* inventory;
     int live;
+    int maxLife;
     PlayerType type;
 
 }PlayerStruct;
 
 typedef struct
 {
-    int currentDepth;
-    PlayerStruct* player;
-    //Level* currentLevel;
+	uint8_t currentDepth;
+	PlayerStruct* player;
+    Depth* loadedDepth;
     vector* saveLevels;//contains : SaveLevelStruct
     int seed;//utilisée pour toutes les opérations de randomisation.
 
 
 }Global;
 
-PlayerStruct* initializePlayerStruct(int live, PlayerType type);
 Global* initializeGlobalStruct(PlayerType type,
-							 int livePlayer,
-							  uint8_t playerLevel,
+							   int livePlayer,
+							   uint8_t playerLevel,
 							   int maxLifePlayer,
 							   uint8_t currentLevel,
-							    int seed,
-							     vector* savedLevels);//nullable
+							   int seed,
+							   vector* savedLevels);//nullable
