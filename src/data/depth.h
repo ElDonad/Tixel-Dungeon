@@ -11,6 +11,9 @@
 #include "simplifiedDepth.h"
 #include "room.h"
 
+#include "../utils/rect.h"
+#include "../utils/random.h"
+
 #define DEPTH_X 50
 #define DEPTH_Y 50
 
@@ -30,4 +33,4 @@ typedef struct
 	SimplifiedDepth* depthData;
 }Depth;
 
-bool canPlaceRoom(Depth* toPlaceIn, uint8_t roomSizeX, uint8_t roomSizeY, uint8_t roomPosX, uint8_t roomPosY);// /!\ : exceptionnellement, n'initialise pas les données du level, dans un soucis d'optimisation.
+bool canPlaceRoom(const Depth* toPlaceIn,Rect_uint8);// /!\ : exceptionnellement, n'initialise pas les données du level, dans un soucis d'optimisation.

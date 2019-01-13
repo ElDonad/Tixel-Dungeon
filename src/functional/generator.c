@@ -1,12 +1,11 @@
 #include "generator.h"
 #include "../data/depth.h"
 
-void generateLevel(Depth* toGenerate, int seed, uint8_t depth)
+bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 {
-	Depth* toGenerate;
 	unsigned int loop;
+	RandomGenerator mainGenerator;
 
-	srandom(seed);
 	toGenerate->id = depth;
 	toGenerate->tiles = malloc(sizeof(uint8_t) * DEPTH_X * DEPTH_Y);
 	for (loop = 0; loop != DEPTH_Y * DEPTH_X; ++loop)
@@ -20,24 +19,47 @@ void generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 		bool chestRoomDone;
 		bool itemRoomDone;
 		unsigned int loop;
+		unsigned int deltaFromCenter;//permet de placer les pièces dans un espace concentrique
 
-		maxRooms = randInt(4,6);
+		maxRooms = random(mainGenerator, 4, 6);
 		chestRoomDone = false;
 		itemRoomDone = false;
+		deltaFromCenter = 5;
 
 		for (loop = 0; loop != maxRooms; ++loop)
 		{
+			uint8_t placementIteration;//si à 255, impossible.
 			bool placed = false;
-			while (placed == false)//tant que la pièce n'a pas trouvé un endroit où se placer...
+			placementIteration = 0
+			while (placed == false || placementIteration == 255)//tant que la pièce n'a pas trouvé un endroit où se placer...
 			{
-				uint8_t roomDimX;
-				uint8_t roomDimY;
-				uint8_t roomPosX; 
+				Rect_uint8 newRoom;
 				
+				newRoom.dimX = random(mainGenerator, 2, 5);
+				newRoom.dimY = random(mainGenerator, 2, 5);
 
-				vec_push_back(toGenerate->simplifiedLevel->rooms, initializeRoom(roomDimX, roomDimY));
+				newRoom.posX = random(mainGenerator,min(DEPTH_X / 2 - deltaFromCenter, 0), max(DEPTH_X / 2 + deltaFromCenter), DEPTH_X);
+				newRoom.posY = random(mainGenerator,min(DEPTH_Y / 2 - deltaFromCenter, 0), max(DEPTH_Y / 2 + deltaFromCenter), DEPTH_Y);
+
+
+				if (canPlaceInRoom(toGenerate, newRoom))
+				{
+					Room* roomToAdd;
+					roomToAdd = malloc(sizeof(Room));
+					roomToAdd->room = newRoom;
+					
+					vec_push_back(toGenerate->depthData->rooms, )
+				}
+
+				placementIteration++;
 			}
+			if (placementIteration == 255) return false;
 
 		}
 	}
+}
+
+void initializeRandom(int seed)
+{
+	srandom(seed);
 }

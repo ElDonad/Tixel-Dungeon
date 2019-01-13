@@ -7,29 +7,24 @@ Depth* initializeDepth()
 	return toInitialize;
 }
 
-bool canPlaceRoom(Depth* toPlaceIn, uint8_t roomSizeX, uint8_t roomSizeY, uint8_t roomPosX, uint8_t roomPosY)
+bool canPlaceRoom(const Depth* toPlaceIn, Rect_uint8 roomPosition)
 {
 	int loop;
 	vector* roomList = &toPlaceIn->depthData->rooms;
+	Rect_uint8 depth;
+	depth.posX = 0;
+	depth.posY = 0;
+	depth.sizeX = DEPTH_X;
+	depth.sizeY = DEPTH_Y;
+
+	if (toPlaceIn->posX + toPlaceIn->sizeX > depth.sizeX || toPlaceIn->posY + toPlaceIn->sizeY > depth.sizeY) return false;//si la pièce dépasse du niveau.
 
 	for (loop = 0; loop != roomList->size; ++loop)
 	{
 		Room* check = (Room*) vec_getByPos(roomList, loop);
-
-		/*Algorithme :
-			- On vérifie que le point du haut gauche de la pièce n'est pas dans la pièce à tester
-			- On vérifie que le point du bas droite de la pièce n'est pas dans la pièce à tester
-			- On vérifie que le point du haut gauche de la pièce à tester n'est pas dans la pièce
-			- On vérifie que le point du bas droite de la pièce à tester n'est pas dans la pièce
-
-		*/
-		if ()
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		
+		if (Rect_uint8_containRect_uint8(&(check->room), &roomPosition)) return false;
 	}
+
+	return true;
 }

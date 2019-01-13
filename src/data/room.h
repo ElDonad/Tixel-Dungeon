@@ -7,13 +7,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../utils/rect.h"
+
+
+/* INFORMATION IMPORTANTE : 
+	- le rect room contient les coordonées INTERIEURES de la pièce. Les murs ne sont pas pris en compte ! 
+
+*/
 
 typedef struct
 {
-	uint8_t roomSizeX; 
-	uint8_t roomSizeY;
-	uint8_t roomPosX;
-	uint8_t roomPosY;
+	Rect_uint8 room;
 	uint8_t accesNumber;
 }Room;
 

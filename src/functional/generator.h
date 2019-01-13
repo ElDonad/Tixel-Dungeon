@@ -9,4 +9,6 @@
 #include <string.h>
 
 struct Level;
-void generateLevel(Depth* toGenerate, int seed, uint8_t depth);
+bool generateLevel(Depth* toGenerate, int seed, uint8_t depth);
+
+void initializeRandom(int seed);

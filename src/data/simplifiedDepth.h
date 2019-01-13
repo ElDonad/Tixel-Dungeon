@@ -9,12 +9,14 @@
 #include <string.h>
 
 #include "../utils/vector.h"
+#include "../utils/random.h"
 #include "item.h"
 
 typedef struct
 {
 	vector items;
 	vector rooms;
+	RandomGenerator randGen;
 }SimplifiedDepth;
 
 SimplifiedDepth* initializeSimplifiedDepth();
