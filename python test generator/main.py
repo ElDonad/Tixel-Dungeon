@@ -276,3 +276,4 @@ for a in range(0,1000):
             for y in range(50):
                 level[x].append(".")
     print("loop position : ",a)
+    input()

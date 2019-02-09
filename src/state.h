@@ -1,3 +1,7 @@
+#ifndef STATE_H
+#define STATE_H
+
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -33,3 +37,5 @@ struct State
 typedef struct State State;
 
 //State* initializeState(StateType type, void (*launch)(void* args), void (*switchState)(StateType switchFrom, StateType switchTo, void* args), void (*switched)(StateType switchFrom, void* args), void (*tick)(uint8_t delta, State* args), void* data);
+
+#endif

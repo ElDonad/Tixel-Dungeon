@@ -1,3 +1,7 @@
+#ifndef SIMPLIFIED_DEPTH_H
+#define SIMPLIFIED_DEPTH_H
+
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -14,9 +18,13 @@
 
 typedef struct
 {
-	vector items;
-	vector rooms;
-	RandomGenerator randGen;
+	vector *items;
+	vector *rooms;
+	vector *corridors;
+	RandomGenerator* randGen;
+	uint8_t depth;
 }SimplifiedDepth;
 
 SimplifiedDepth* initializeSimplifiedDepth();
+
+#endif

@@ -1,62 +1,237 @@
 #include "generator.h"
-#include "../data/depth.h"
+#include "../data/room.h"
+
+#include "../utils/vector.h"
+#include "../utils/rect.h"
+
+
+uint8_t u8max(uint8_t a, uint8_t b){
+	if (a >= b){
+		return a;
+	}
+	return b;
+}
+uint8_t u8min(uint8_t a, uint8_t b){
+	if (a <= b){
+		return a;
+	}
+	return b;
+}
+
+Straight* straightInDirection(Direction direction, Coord_u8 start, uint8_t length, Straight* straight){
+	Straight* toReturn;
+	if (start.x == 0 && start.y == 0){
+		start.x = straight->x;
+		start.y = straight->y;
+	}
+	if (straight == NULL){
+		toReturn = malloc(sizeof(Straight));
+		toReturn->x = start.x;
+		toReturn->y = start.y;
+	}
+	else{
+		toReturn = straight;
+	}
+
+	if (direction == LEFT){
+		toReturn->orientation = HORIZONTAL;
+		toReturn->length = -(int)(length);
+		return toReturn;
+	}
+	else if (direction == RIGHT){
+		toReturn->orientation = HORIZONTAL;
+		toReturn->length = (int)(length);
+		return toReturn;
+	}
+	else if (direction == UP){
+		toReturn->orientation = VERTICAL;
+		toReturn->length = -(int)(length);
+		return toReturn;
+	}
+	else if (direction == DOWN){
+		toReturn->orientation = VERTICAL;
+		toReturn->length = (int)(length);
+		return toReturn;
+	}
+}
+
+Path* generateCorridor(Room* start, Room* end, RandomGenerator* generator){
+	Coord_u8 startPoint;
+	Coord_u8 endPoint;
+	Direction initialDir;
+	Orientation initialOrientation;
+
+	Path* toReturn;
+	toReturn = malloc(sizeof(Path));
+
+	if (fabs(start->size.x - end->size.y) > abs(start->size.y - end->size.y)){
+		initialOrientation = HORIZONTAL;
+		if (start->size.x > end->size.x){
+			initialDir = LEFT;
+			startPoint.x = start->size.x;
+			startPoint.y = randomInt(generator, start->size.y, start->size.y + start->size.h);
+
+			endPoint.x = end->size.x + end->size.w;
+			endPoint.y = randomInt(generator, end->size.y, end->size.y + end->size.h);
+
+		}
+		else{
+			initialDir = RIGHT;
+			startPoint.x = start->size.x + start->size.w;
+			startPoint.y = randomInt(generator, start->size.y, start->size.y + start->size.h);
+			
+			endPoint.x = end->size.x;
+			endPoint.y = randomInt(generator, end->size.y, end->size.y + end->size.h);
+		}
+	}
+	else{
+		initialOrientation = VERTICAL;
+		if (start->size.y > end->size.y){
+			initialDir = UP;
+			startPoint.y = start->size.y;
+			startPoint.x = randomInt(generator, start->size.x, start->size.x + start->size.w);
+
+			endPoint.y = end->size.y + end->size.h;
+			endPoint.x = randomInt(generator, end->size.x, end->size.x + end->size.w);
+		}
+		else{
+			initialDir = DOWN;
+			startPoint.y = start->size.y + start->size.h;
+			startPoint.x = randomInt(generator, start->size.x, start->size.x + start->size.w);
+
+			endPoint.y = end->size.y;
+			endPoint.x = randomInt(generator, end->size.x, end->size.x + end->size.w);
+		}
+	}
+	dbg_sprintf(dbgout, "Corridor start point: ",startPoint.x, startPoint.y);
+	dbg_sprintf(dbgout, "Corridor end point: ",endPoint.x, endPoint.y);
+
+	{//Début de la génération des chemins : 
+		Coord_u8 currentPos;
+		Direction headingDir;
+		uint8_t deltaDir;
+		Direction priorityOrientation; 
+
+		currentPos = startPoint;
+		headingDir = initialDir;
+
+		if (initialDir == LEFT || initialDir == RIGHT){
+			deltaDir = fabs(startPoint.x - endPoint.x);
+			priorityOrientation = VERTICAL;
+		}
+		else if (initialDir == UP || initialDir == DOWN){
+			deltaDir = fabs(startPoint.y - endPoint.y);
+			priorityOrientation = HORIZONTAL;
+		}
+		vec_push_back(toReturn->straights,(void*) straightInDirection(initialDir,startPoint, randomInt(generator, 1, deltaDir / 3), NULL));
+		currentPos = getEndStraight((Straight*)vec_getByPos(toReturn->straights, toReturn->straights->size - 1));
+
+		while (currentPos.x != endPoint.x && currentPos.y != endPoint.y){
+			uint8_t xDelta;
+			uint8_t yDelta;
+			int xOffset;
+			int yOffset;
+
+			xDelta = fabs(endPoint.x - currentPos.x);
+			yDelta = fabs(endPoint.y - currentPos.y);
+			xOffset = endPoint.x - currentPos.x;
+			yOffset = endPoint.y - currentPos.y;
+
+			if (yOffset != 0 && (priorityOrientation == VERTICAL || xOffset == 0)){
+				Direction newDirection;
+				if (yOffset < 0) newDirection = UP;
+				else if (yOffset > 0) newDirection = DOWN;
+				vec_push_back(toReturn->straights, (void*)straightInDirection(newDirection, currentPos, yDelta, NULL));
+			}
+			else if (xOffset != 0 && (priorityOrientation == HORIZONTAL || yOffset == 0)){
+				Direction newDirection;
+				if (xOffset < 0) newDirection = LEFT;
+				else if (xOffset > 0) newDirection = RIGHT;
+				vec_push_back(toReturn->straights, (void*)straightInDirection(newDirection, currentPos, xDelta, NULL));
+
+			}
+			currentPos = getEndStraight((Straight*)vec_getByPos(toReturn->straights, toReturn->straights->size - 1));
+		}
+
+
+	}
+
+	return toReturn;
+
+}
 
 bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 {
-	unsigned int loop;
+	//initialization
+	Range roomRange;
+	uint8_t roomNumber;
+	vector* rooms;
+	vector* corridors;
+	uint8_t* tilesArray;
+	uint8_t deltaFromCenter;
 	RandomGenerator mainGenerator;
 
-	toGenerate->id = depth;
-	toGenerate->tiles = malloc(sizeof(uint8_t) * DEPTH_X * DEPTH_Y);
-	for (loop = 0; loop != DEPTH_Y * DEPTH_X; ++loop)
-	{
-		*(toGenerate + loop) = 0;
+	int loop;
+
+
+	dbg_sprintf(dbgout,"Debut de la generation...");
+
+	mainGenerator.seed = seed;
+
+	roomRange = getDepthRoomCountRange(depth);
+	rooms = toGenerate->data->rooms;
+	corridors = toGenerate->data->corridors;
+	tilesArray = malloc(sizeof(uint8_t) * DEPTH_X * DEPTH_Y);
+	toGenerate->tiles = tilesArray;
+	deltaFromCenter = 3;
+	roomNumber = randomRange(&mainGenerator, roomRange);
+	dbg_sprintf(dbgout, "Nombre de pièces : ", roomNumber);
+
+	for(loop=0; loop != DEPTH_X * DEPTH_Y; ++loop){
+		tilesArray[loop] = 0;
 	}
 
-	//génération des salles
-	{
-		uint8_t maxRooms;
-		bool chestRoomDone;
-		bool itemRoomDone;
-		unsigned int loop;
-		unsigned int deltaFromCenter;//permet de placer les pièces dans un espace concentrique
+	for(loop = 0; loop != roomNumber; ++loop){
+		bool placed;
+		int placeIt;
 
-		maxRooms = random(mainGenerator, 4, 6);
-		chestRoomDone = false;
-		itemRoomDone = false;
-		deltaFromCenter = 5;
+		placed = false;
+		for (placeIt = 0; placeIt != 1500; ++placeIt){
+			Room *newRoom;
+			bool collide;
+			newRoom = malloc(sizeof(Room));
+			newRoom->size.h = randomInt(&mainGenerator, 3,6);
+			newRoom->size.w = randomInt(&mainGenerator, 3,6);
+			newRoom->size.x = randomInt(&mainGenerator, u8max(0, DEPTH_X / 2 - deltaFromCenter), u8min(DEPTH_X - newRoom->size.w - 2, DEPTH_X / 2 + deltaFromCenter));
+			newRoom->size.y = randomInt(&mainGenerator, u8max(0, DEPTH_Y / 2 - deltaFromCenter), u8min(DEPTH_X - newRoom->size.h - 2, DEPTH_Y / 2 + deltaFromCenter));
 
-		for (loop = 0; loop != maxRooms; ++loop)
-		{
-			uint8_t placementIteration;//si à 255, impossible.
-			bool placed = false;
-			placementIteration = 0
-			while (placed == false || placementIteration == 255)//tant que la pièce n'a pas trouvé un endroit où se placer...
-			{
-				Rect_uint8 newRoom;
-				
-				newRoom.dimX = random(mainGenerator, 2, 5);
-				newRoom.dimY = random(mainGenerator, 2, 5);
-
-				newRoom.posX = random(mainGenerator,min(DEPTH_X / 2 - deltaFromCenter, 0), max(DEPTH_X / 2 + deltaFromCenter), DEPTH_X);
-				newRoom.posY = random(mainGenerator,min(DEPTH_Y / 2 - deltaFromCenter, 0), max(DEPTH_Y / 2 + deltaFromCenter), DEPTH_Y);
-
-
-				if (canPlaceInRoom(toGenerate, newRoom))
-				{
-					Room* roomToAdd;
-					roomToAdd = malloc(sizeof(Room));
-					roomToAdd->room = newRoom;
-					
-					vec_push_back(toGenerate->depthData->rooms, )
+			collide = roomCollide(newRoom, toGenerate);
+			if (collide == false){
+				placed = true;
+				vec_push_back(rooms, newRoom);
+				if (rooms->size > 1){
+					Path* newRegularCorridor;
+					newRegularCorridor = generateCorridor((Room*)vec_getByPos(rooms, rooms->size - 2), (Room*) vec_getByPos(rooms, rooms->size - 1), &mainGenerator);
+					vec_push_back(corridors, newRegularCorridor);
 				}
-
-				placementIteration++;
+				break;
 			}
-			if (placementIteration == 255) return false;
 
 		}
+		if (placed == false){
+			dbg_sprintf(dbgerr, "Limite d'essais dépassé lors de la création d'une pièce");
+			return false;
+		}
+
 	}
+	return true;
+
+
+
+}
+
+bool populate(Depth* toPopulate){
+	return true;
 }
 
 void initializeRandom(int seed)

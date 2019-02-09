@@ -2,19 +2,20 @@
 
 void drawSlidingBackground(gfx_sprite_t* sprite, uint8_t offset, uint8_t spriteRowNumber, bool isTransparent);
 
-void onLaunch(void* args)
+void onLaunchTTS(void* args)
 {
 	gfx_Begin();
 	gfx_SetPalette(titleScreenSprites_pal,sizeof_titleScreenSprites_pal, 0);
 	gfx_SetDrawBuffer();
+	dbg_sprintf(dbgout, "Title screen state initialized");
 }
 
-void onSwitch(StateType from, void* args)
+void onSwitchTTS(StateType from, void* args)
 {
 
 }
 
-void tick(uint8_t delta, State* self)
+void tickTTS(uint8_t delta, State* self)
 {
 
 	uint8_t heightLoop, widthLoop;
@@ -36,9 +37,10 @@ void tick(uint8_t delta, State* self)
 		gfx_End();
 		self->stop();
 	}
-	else if (kb_Data[6] & kb_Enter)//Passer en mode ingame
+	if (kb_Data[6] & kb_Enter)//Passer en mode ingame
 	{
 		MainMenuToInGameStruct* machin;
+		dbg_sprintf(dbgout, "Lancement du nouvel état...");
 		machin = malloc(sizeof(MainMenuToInGameStruct));
 		machin->isNewRun = true;
 		self->switchState(MAIN_MENU_STATE, INGAME_STATE, machin);
@@ -53,10 +55,10 @@ State* initializeTitleScreenState(void (*switchState)(StateType switchFrom, Stat
 	data = malloc(sizeof(TitleScreenData));
 	toReturn = malloc(sizeof(State));
 	toReturn->type = MAIN_MENU_STATE;
-	toReturn->launch = &onLaunch;
+	toReturn->launch = &onLaunchTTS;
 	toReturn->switchState = switchState;
-	toReturn->switched = &onSwitch;
-	toReturn->tick = &tick;
+	toReturn->switched = &onSwitchTTS;
+	toReturn->tick = &tickTTS;
 	toReturn->data = data;
 	toReturn->stop = stop;
 	return toReturn;

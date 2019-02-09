@@ -3,28 +3,25 @@
 Depth* initializeDepth()
 {
 	Depth* toInitialize = malloc(sizeof(Depth));
-	toInitialize->depthData = initializeSimplifiedDepth();
+	toInitialize->data = initializeSimplifiedDepth();
 	return toInitialize;
 }
 
-bool canPlaceRoom(const Depth* toPlaceIn, Rect_uint8 roomPosition)
-{
+bool roomCollide(Room* rm1, Depth* depth){
 	int loop;
-	vector* roomList = &toPlaceIn->depthData->rooms;
-	Rect_uint8 depth;
-	depth.posX = 0;
-	depth.posY = 0;
-	depth.sizeX = DEPTH_X;
-	depth.sizeY = DEPTH_Y;
-
-	if (toPlaceIn->posX + toPlaceIn->sizeX > depth.sizeX || toPlaceIn->posY + toPlaceIn->sizeY > depth.sizeY) return false;//si la pièce dépasse du niveau.
-
-	for (loop = 0; loop != roomList->size; ++loop)
-	{
-		Room* check = (Room*) vec_getByPos(roomList, loop);
-		
-		if (Rect_uint8_containRect_uint8(&(check->room), &roomPosition)) return false;
+	Rect_uint8 *rect1 = &rm1->size;
+	for (loop = 0; loop != depth->data->rooms->size; loop++){
+		Rect_uint8* rect2 = (Rect_uint8*)vec_getByPos(depth->data->rooms, loop);
+		if (rect1->x + rect1->w + 1 >= rect2->x - 1 &&
+			rect1->x - 1 <= rect2->x + rect2->w + 1 &&
+			rect1->y + rect1->h + 1 >= rect2->y - 1 &&
+			rect1->y - 1 <= rect2->y + rect2->h + 1){
+			return true;
+		}
 	}
+	return false;
+}
 
-	return true;
+void test(Depth* test){
+	return;
 }

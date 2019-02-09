@@ -8,7 +8,6 @@ vectorItem* initializeVectorItem(vectorItem* previous, vectorItem* next, void* c
 	toInitialize->current = current;
 	return toInitialize;
 }
-#warning "function initializeVectorItem done"
 
 void destroy(vector* toDestroy)
 {
@@ -20,7 +19,6 @@ void destroy(vector* toDestroy)
 	}
 	free(toDestroy);
 }
-#warning "function destroy done"
 
 vectorItem* getItemById(vector* toBeGot, unsigned int pos)
 {
@@ -42,7 +40,6 @@ vectorItem* getItemById(vector* toBeGot, unsigned int pos)
 		return toReturn;
 	}
 }
-#warning "function getItemById done"
 
 vector* initializeVector()
 {
@@ -53,7 +50,6 @@ vector* initializeVector()
 	toInitialize->last = NULL;
 	return toInitialize;
 }
-#warning "function initializeVector done"
 
 void* vec_push_back(vector* toBePushed, void* toPush)
 {
@@ -78,7 +74,6 @@ void* vec_push_back(vector* toBePushed, void* toPush)
 		return toPush;
 	}
 }
-#warning "function vec_push_back done"
 
 void* vec_getLast(vector* toBeGot)
 {
@@ -87,7 +82,6 @@ void* vec_getLast(vector* toBeGot)
 	else
 		{return NULL;}
 }
-#warning "function vec_getLast done"
 
 void* vec_getFirst(vector* toBeGot)
 {
@@ -96,7 +90,6 @@ void* vec_getFirst(vector* toBeGot)
 	else
 		{return NULL;}
 }
-#warning "function vec_getFirst done"
 
 void vec_pop_back(vector* toBePoped)
 {
@@ -117,13 +110,11 @@ void vec_pop_back(vector* toBePoped)
 		free(toFree);
 	}
 }
-#warning "function vec_pop_back done"
 
 void* vec_getByPos(vector* toBeGot, unsigned int pos)
 {
 	return getItemById(toBeGot, pos)->current;
 }
-#warning "function vec_getByPos done"
 
 void* vec_push_front(vector* toBePushed, void* toPush)
 {
@@ -147,7 +138,6 @@ void* vec_push_front(vector* toBePushed, void* toPush)
 		return toPush;
 	}
 }
-#warning "function vec_push_front done"
 
 void vec_pop_front(vector* toBePoped)
 {
@@ -169,7 +159,6 @@ void vec_pop_front(vector* toBePoped)
 		toBePoped->size -= 1;
 	}
 }
-#warning function vec_pop_front done
 
 void* vec_insert(vector* toBeInserted, void* toInsert, unsigned int pos)
 {
@@ -206,7 +195,6 @@ void* vec_insert(vector* toBeInserted, void* toInsert, unsigned int pos)
 	return NULL;
 
 }
-#warning function vec_insert done
 
 void vec_delete(vector* toBeDeleted, unsigned int pos)
 {
@@ -238,4 +226,3 @@ void vec_delete(vector* toBeDeleted, unsigned int pos)
 		dbg_sprintf(dbgerr, "failed to delete object : bad initialization\n");
 	}
 }
-#warning function vec_delete done

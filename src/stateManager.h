@@ -19,6 +19,7 @@ typedef struct
 	vector* states;//type : State*
 	uint8_t defaultState;
 	bool mustStop;
+	bool mustReinit;
 }StateManager;
 
 StateManager* initializeStateManager();

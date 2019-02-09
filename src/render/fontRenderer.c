@@ -20,7 +20,7 @@ void drawString(char* string, FontIndexes fontIndex, uint24_t posX, uint8_t posY
             Character* currentChar;
 
             currentChar = getChar(fontIndex, *(string + loop));
-            dbg_sprintf(dbgout,"%i",currentChar->xLengh);
+            //dbg_sprintf(dbgout,"%i",currentChar->xLengh);
             if (currentColoumn + currentChar->xLengh > marginX)//si fin de ligne
             {
                 currentRow++;
@@ -30,8 +30,8 @@ void drawString(char* string, FontIndexes fontIndex, uint24_t posX, uint8_t posY
             {
                 return;
             }
-            dbg_sprintf(dbgout, "caractere affiché : %c\n", currentChar->character);
-            dbg_sprintf(dbgout,"colonne compte : %i\n",currentColoumn);
+            //dbg_sprintf(dbgout, "caractere affiché : %c\n", currentChar->character);
+            //dbg_sprintf(dbgout,"colonne compte : %i\n",currentColoumn);
 
             gfx_SetClipRegion(posX + currentColoumn, posY + currentRow * characterHeight, posX + currentColoumn + currentChar->xLengh,  posY + (currentRow + 1) * characterHeight);
             gfx_TransparentSprite(font, posX + currentColoumn - currentChar->xOffset, posY + (currentRow - currentChar->line) * characterHeight);

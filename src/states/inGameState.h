@@ -1,3 +1,7 @@
+#ifndef IN_GAME_STATE_H
+#define IN_GAME_STATE_H
+
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -12,14 +16,18 @@
 #include "switchStateStructs.h"
 
 #include "../data/dataManager.h"
+#include "../functional/generator.h"
 
 typedef struct
 {
 	Global* gameStruct;
 	bool isInitialized;
-	int loadedLevel;
 }InGameData;
 
+typedef struct{//à continuer
+	PlayerType playerType;
 
+}InGameSwitchData;
 
 State* initializeInGameState(void (*switchState)(StateType switchFrom, StateType switchTo, void* data), void (*stop)());
+#endif

@@ -1,0 +1,7 @@
+/obj
+/bin
+/original
+compile.bat
+"compile debug.bat"
+makeImages.bat
+makefile

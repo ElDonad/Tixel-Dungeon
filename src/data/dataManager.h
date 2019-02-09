@@ -1,3 +1,7 @@
+#ifndef DATA_MANAGER_H
+#define DATA_MANAGER_H
+
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -48,3 +52,5 @@ Global* initializeGlobalStruct(PlayerType type,
 							   uint8_t currentLevel,
 							   int seed,
 							   vector* savedLevels);//nullable
+
+#endif

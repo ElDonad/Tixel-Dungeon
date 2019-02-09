@@ -1,9 +1,11 @@
-#pragma once
+#ifndef TITLE_SCREEN_STATE_H
+#define TITLE_SCREEN_STATE_H
 
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <tice.h>
+#include <debug.h>
 
 #include <math.h>
 #include <stdio.h>
@@ -40,3 +42,4 @@ void onSwitch(StateType switchFrom, void* args);//args : State* currentState
 void tick(uint8_t delta, State* self);//args : State* currentState
 */
 State* initializeTitleScreenState(void (*switchState)(StateType switchFrom, StateType switchTo, void* data), void (*stop)());
+#endif

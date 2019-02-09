@@ -1,3 +1,7 @@
+#ifndef INVENTORY_H
+#define INVENTORY_H
+
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -33,3 +37,5 @@ Item getItem(Inventory*, ItemType type);//retourne la référence exacte de l'it
 
 Inventory* initializeInventory(uint8_t maxSize);
 void destroyInventory(Inventory*);
+
+#endif
