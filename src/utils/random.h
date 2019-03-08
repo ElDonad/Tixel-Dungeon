@@ -7,6 +7,7 @@
 #include <tice.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <debug.h>
 typedef struct
 {
 	unsigned int seed;

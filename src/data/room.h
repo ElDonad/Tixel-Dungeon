@@ -40,6 +40,9 @@ typedef struct{
 	vector* straights;
 }Path;
 
+Path* initializePath();
+void freePath(Path* toFree);
+
 Path* c_Path();
 
 typedef struct{

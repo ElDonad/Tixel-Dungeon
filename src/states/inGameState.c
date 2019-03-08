@@ -36,7 +36,11 @@ void tick(uint8_t delta, State* self)
 		dbg_sprintf(dbgout, "Generation done");
 	}
 	else{
+		bool passed = false;
 		dbg_sprintf(dbgout, "bug de condition...");
+		
+		while (true){}
+
 	}
 }
 

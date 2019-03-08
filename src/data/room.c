@@ -18,9 +18,14 @@ Coord_u8 getEndStraight(Straight* toGet){
 	}
 }
 
-Path* c_Path(){
+Path* initializePath(){
 	Path* toReturn;
 	toReturn = malloc(sizeof(Path));
 	toReturn->straights = initializeVector();
 	return toReturn;
+}
+
+void freePath(Path* toFree){
+	freeVector(toFree->straights);
+	free(toFree);
 }

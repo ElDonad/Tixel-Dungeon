@@ -10,7 +10,7 @@ Inventory* initializeInventory(uint8_t maxSize)
 
 void destroyInventory(Inventory* toDestroy)
 {
-    destroy(toDestroy->items);
+    freeVector(toDestroy->items);
     free(toDestroy);
 }
 

@@ -9,13 +9,11 @@ vectorItem* initializeVectorItem(vectorItem* previous, vectorItem* next, void* c
 	return toInitialize;
 }
 
-void destroy(vector* toDestroy)
+void freeVector(vector* toDestroy)
 {
-	vectorItem* itemToFree;
-	itemToFree = toDestroy->first;
-	while (itemToFree->next != NULL)
-	{
-		free(itemToFree->current);
+	int loop;
+	for (loop = 0; loop != toDestroy->size; loop++){
+		free(vec_getByPos(toDestroy, loop));
 	}
 	free(toDestroy);
 }

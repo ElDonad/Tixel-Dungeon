@@ -21,6 +21,7 @@
 #include "../render/button.h"
 #include "../render/fontIndexes.h"
 #include "../render/fontRenderer.h"
+#include "../utils/random.h"
 
 
 typedef enum
@@ -34,6 +35,7 @@ typedef struct
 
 	Menu menuIn;
 	uint8_t currentButton;//Utilisé pour savoir où l'utilisateur souhaite cliquer.
+	RandomGenerator gen;
 }TitleScreenData;
 
 //Dans les fonctions suivantes, currentState désigne la struct State qui contient ces fonctions.

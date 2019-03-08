@@ -18,6 +18,7 @@ void onSwitchTTS(StateType from, void* args)
 void tickTTS(uint8_t delta, State* self)
 {
 
+	TitleScreenData* data = (TitleScreenData*) self->data;
 	uint8_t heightLoop, widthLoop;
 	char truc[] = "0121:23";
 
@@ -26,7 +27,7 @@ void tickTTS(uint8_t delta, State* self)
 	drawSlidingBackground(arcs2, delta, 5, true);
 
 	drawButtonWithText(20,20,100,40,NULL,false);
-	drawString(&truc, SmallFontIndex, 24,24,80,2,LeftAlignment);
+	drawString(truc, SmallFontIndex, 24,24,80,2,LeftAlignment);
 	gfx_SwapDraw();
 
 
@@ -44,6 +45,8 @@ void tickTTS(uint8_t delta, State* self)
 		machin = malloc(sizeof(MainMenuToInGameStruct));
 		machin->isNewRun = true;
 		self->switchState(MAIN_MENU_STATE, INGAME_STATE, machin);
+		//dbg_sprintf(dbgout, "new rand : %i", randomInt(&data->gen, 1,50));
+
 	}
 
 }
@@ -53,6 +56,7 @@ State* initializeTitleScreenState(void (*switchState)(StateType switchFrom, Stat
 	TitleScreenData* data;
 	State* toReturn;
 	data = malloc(sizeof(TitleScreenData));
+	data->gen.seed = 2567871;
 	toReturn = malloc(sizeof(State));
 	toReturn->type = MAIN_MENU_STATE;
 	toReturn->launch = &onLaunchTTS;

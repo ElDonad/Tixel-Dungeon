@@ -32,7 +32,7 @@ typedef struct
 }vector;
 
 vector* initializeVector();
-void destroy(vector*);
+void freeVector(vector*);
 
 void* vec_push_back(vector* toBePushed, void* toPush);//done
 void vec_pop_back(vector* toBePoped);//done

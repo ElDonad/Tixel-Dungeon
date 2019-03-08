@@ -62,7 +62,7 @@ Path* generateCorridor(Room* start, Room* end, RandomGenerator* generator){
 	Orientation initialOrientation;
 
 	Path* toReturn;
-	toReturn = malloc(sizeof(Path));
+	toReturn = initializePath();
 
 	if (fabs(start->size.x - end->size.y) > abs(start->size.y - end->size.y)){
 		initialOrientation = HORIZONTAL;
@@ -103,8 +103,8 @@ Path* generateCorridor(Room* start, Room* end, RandomGenerator* generator){
 			endPoint.x = randomInt(generator, end->size.x, end->size.x + end->size.w);
 		}
 	}
-	dbg_sprintf(dbgout, "Corridor start point: ",startPoint.x, startPoint.y);
-	dbg_sprintf(dbgout, "Corridor end point: ",endPoint.x, endPoint.y);
+	dbg_sprintf(dbgout, "Corridor start point: %i, %i",startPoint.x, startPoint.y);
+	dbg_sprintf(dbgout, "Corridor end point: %i %i",endPoint.x, endPoint.y);
 
 	{//Début de la génération des chemins : 
 		Coord_u8 currentPos;
@@ -174,7 +174,7 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 	int loop;
 
 
-	dbg_sprintf(dbgout,"Debut de la generation...");
+	dbg_sprintf(dbgout,"Debut de la generation... seed : %i\n", seed);
 
 	mainGenerator.seed = seed;
 
@@ -185,7 +185,6 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 	toGenerate->tiles = tilesArray;
 	deltaFromCenter = 3;
 	roomNumber = randomRange(&mainGenerator, roomRange);
-	dbg_sprintf(dbgout, "Nombre de pièces : ", roomNumber);
 
 	for(loop=0; loop != DEPTH_X * DEPTH_Y; ++loop){
 		tilesArray[loop] = 0;
@@ -195,6 +194,7 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 		bool placed;
 		int placeIt;
 
+		dbg_sprintf(dbgout, "Nombre de pièces : %i", loop);
 		placed = false;
 		for (placeIt = 0; placeIt != 1500; ++placeIt){
 			Room *newRoom;
@@ -205,8 +205,10 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 			newRoom->size.x = randomInt(&mainGenerator, u8max(0, DEPTH_X / 2 - deltaFromCenter), u8min(DEPTH_X - newRoom->size.w - 2, DEPTH_X / 2 + deltaFromCenter));
 			newRoom->size.y = randomInt(&mainGenerator, u8max(0, DEPTH_Y / 2 - deltaFromCenter), u8min(DEPTH_X - newRoom->size.h - 2, DEPTH_Y / 2 + deltaFromCenter));
 
+			dbg_sprintf(dbgout, "new room to place : %i %i %i %i", newRoom->size.x, newRoom->size.y, newRoom->size.w, newRoom->size.h);
 			collide = roomCollide(newRoom, toGenerate);
 			if (collide == false){
+				dbg_sprintf(dbgout, "room placed\n");
 				placed = true;
 				vec_push_back(rooms, newRoom);
 				if (rooms->size > 1){
@@ -219,11 +221,12 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 
 		}
 		if (placed == false){
-			dbg_sprintf(dbgerr, "Limite d'essais dépassé lors de la création d'une pièce");
+			dbg_sprintf(dbgerr, "Limite d'essais dépassé lors de la création d'une pièce\n");
 			return false;
 		}
 
 	}
+	toGenerate->data->depth = depth;
 	return true;
 
 
