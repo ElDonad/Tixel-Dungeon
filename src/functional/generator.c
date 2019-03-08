@@ -18,6 +18,8 @@ uint8_t u8min(uint8_t a, uint8_t b){
 	return b;
 }
 
+void applyDepth(Depth* toApply);//complète le tableau de cases du niveau.
+
 Straight* straightInDirection(Direction direction, Coord_u8 start, uint8_t length, Straight* straight){
 	Straight* toReturn;
 	if (start.x == 0 && start.y == 0){
@@ -79,7 +81,7 @@ Path* generateCorridor(Room* start, Room* end, RandomGenerator* generator){
 			initialDir = RIGHT;
 			startPoint.x = start->size.x + start->size.w;
 			startPoint.y = randomInt(generator, start->size.y, start->size.y + start->size.h);
-			
+
 			endPoint.x = end->size.x;
 			endPoint.y = randomInt(generator, end->size.y, end->size.y + end->size.h);
 		}
@@ -106,11 +108,11 @@ Path* generateCorridor(Room* start, Room* end, RandomGenerator* generator){
 	dbg_sprintf(dbgout, "Corridor start point: %i, %i",startPoint.x, startPoint.y);
 	dbg_sprintf(dbgout, "Corridor end point: %i %i",endPoint.x, endPoint.y);
 
-	{//Début de la génération des chemins : 
+	{//Début de la génération des chemins :
 		Coord_u8 currentPos;
 		Direction headingDir;
 		uint8_t deltaDir;
-		Direction priorityOrientation; 
+		Direction priorityOrientation;
 
 		currentPos = startPoint;
 		headingDir = initialDir;
@@ -181,8 +183,7 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 	roomRange = getDepthRoomCountRange(depth);
 	rooms = toGenerate->data->rooms;
 	corridors = toGenerate->data->corridors;
-	tilesArray = malloc(sizeof(uint8_t) * DEPTH_X * DEPTH_Y);
-	toGenerate->tiles = tilesArray;
+	tilesArray = toGenerate->tiles;
 	deltaFromCenter = 3;
 	roomNumber = randomRange(&mainGenerator, roomRange);
 
@@ -227,14 +228,15 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 
 	}
 	toGenerate->data->depth = depth;
+	applyDepth(toGenerate);
 	return true;
 
 
 
 }
 
-bool populate(Depth* toPopulate){
-	return true;
+void applyDepth(Depth* depth){
+
 }
 
 void initializeRandom(int seed)

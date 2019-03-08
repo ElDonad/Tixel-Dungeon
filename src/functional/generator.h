@@ -18,7 +18,6 @@
 struct Level;
 //N'initialise pas un niveau, génère simplement le layout de la salle. La seed et le depth doivent correspondre, ils seront sauvegardés dans le Depth.
 bool generateLevel(Depth* toGenerate, int seed, uint8_t depth);
-bool populateDepth(Depth*);//spécialise les pièces, ajoute les variations de bloc, les mobs,...
 
 void initializeRandom(int seed);
 #endif

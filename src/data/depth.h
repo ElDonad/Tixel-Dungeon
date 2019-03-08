@@ -38,7 +38,7 @@ typedef struct
 	SimplifiedDepth* data;
 }Depth;
 
-Depth* initializeDepth();
+Depth* initializeDepth(uint8_t* tiles);
 bool roomCollide(Room*, Depth*);
 void test(Depth* test);
 bool corridorCollide(Path* cor1, Depth* depth);

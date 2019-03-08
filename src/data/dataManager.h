@@ -38,7 +38,8 @@ typedef struct
 {
 	uint8_t currentDepth;
 	PlayerStruct* player;
-    Depth* loadedDepth;
+	uint8_t* loadedDepthTiles;
+	Depth* loadedDepth;
     vector* saveLevels;//contains : SaveLevelStruct
     int seed;//utilisée pour toutes les opérations de randomisation.
 

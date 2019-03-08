@@ -16,13 +16,13 @@ void tick(uint8_t delta, State* self)
 
 
 	data = (InGameData*)self->data;
-	if (data->isInitialized == false)//si premier lancement : 
+	if (data->isInitialized == false)//si premier lancement :
 	{
 		dbg_sprintf(dbgout, "begin initialisation");
 		data->gameStruct = initializeGlobalStruct(Rogue, 150, 1, 150, 1, 123 * delta, NULL);
 		dbg_sprintf(dbgout, "global struct initialized");
 		//TODO : remettre ça à sa place, avant l'initialisation de tout. Si nécessaire.
-		data->gameStruct->loadedDepth = initializeDepth();
+		data->gameStruct->loadedDepth = initializeDepth(data->gameStruct->loadedDepthTiles);
 		data->gameStruct->loadedDepth->data->depth = 0;
 		data->gameStruct->currentDepth = 1;
 		data->isInitialized = true;
@@ -38,7 +38,7 @@ void tick(uint8_t delta, State* self)
 	else{
 		bool passed = false;
 		dbg_sprintf(dbgout, "bug de condition...");
-		
+
 		while (true){}
 
 	}

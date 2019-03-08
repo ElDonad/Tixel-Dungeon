@@ -21,6 +21,7 @@ Global* initializeGlobalStruct(PlayerType type, int livePlayer, uint8_t playerLe
 	toInitialize->player = playerStruct;
 	toInitialize->currentDepth = currentLevel;
 	toInitialize->seed = seed;
+	toInitialize->loadedDepthTiles = malloc(sizeof(uint8_t) * DEPTH_X * DEPTH_Y);
 
 	if (savedLevels != NULL) toInitialize->saveLevels = savedLevels;
 	else toInitialize->saveLevels = initializeVector();
