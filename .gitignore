@@ -6,3 +6,4 @@ compile.bat
 makeImages.bat
 makefile
 *.json
+*.exe
