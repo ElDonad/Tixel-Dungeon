@@ -5,3 +5,4 @@ compile.bat
 "compile debug.bat"
 makeImages.bat
 makefile
+*.json

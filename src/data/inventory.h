@@ -27,6 +27,7 @@ typedef struct
 {
     vector* items;//type : InventoryItem;
     uint8_t maxSize;
+    uint8_t* shortcutItems;//les items placés dans les quick slots. 
 }Inventory;
 
 uint8_t itemCount(Inventory*, ItemId itemId);//return 0 if no item, item count otherwise

@@ -28,9 +28,10 @@ typedef struct
 {
     int currentLevel;
     Inventory* inventory;
-    int live;
+    int life;
     int maxLife;
     PlayerType type;
+	uint8_t posX, posY;
 
 }PlayerStruct;
 

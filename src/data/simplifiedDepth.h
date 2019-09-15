@@ -23,7 +23,7 @@ typedef struct
 	vector *corridors;
 	RandomGenerator* randGen;
 	uint8_t depth;
-}SimplifiedDepth;
+}SimplifiedDepth;//Cette struct stocke toutes les données relative au niveau, sans stocker les tiles. Ce sont les données de sauvegarde.
 
 SimplifiedDepth* initializeSimplifiedDepth();
 

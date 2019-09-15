@@ -19,8 +19,6 @@
 
 #include "../gfx/titleScreenSprites.h"
 #include "../render/button.h"
-#include "../render/fontIndexes.h"
-#include "../render/fontRenderer.h"
 #include "../utils/random.h"
 
 

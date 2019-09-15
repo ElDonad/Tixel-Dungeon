@@ -27,7 +27,6 @@ void tickTTS(uint8_t delta, State* self)
 	drawSlidingBackground(arcs2, delta, 5, true);
 
 	drawButtonWithText(20,20,100,40,NULL,false);
-	drawString(truc, SmallFontIndex, 24,24,80,2,LeftAlignment);
 	gfx_SwapDraw();
 
 

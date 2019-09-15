@@ -1,4 +1,7 @@
 @echo off
-set CEDEV=F:\programmation\asm\c
-F:\programmation\asm\c\bin\make debug
+
+set CEDEV=E:\programmation\asm\c
+
+E:\programmation\asm\c\bin\make debug
+
 pause

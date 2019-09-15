@@ -164,6 +164,15 @@ Path* generateCorridor(Room* start, Room* end, RandomGenerator* generator){
 
 bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 {
+	uint8_t* tiles;
+	tiles = malloc(sizeof(uint8_t) * DEPTH_X * DEPTH_Y);
+	toGenerate->tiles = tiles;
+	return true;
+
+
+
+
+	/*
 	//initialization
 	Range roomRange;
 	uint8_t roomNumber;
@@ -232,11 +241,15 @@ bool generateLevel(Depth* toGenerate, int seed, uint8_t depth)
 	return true;
 
 
-
+	*/
 }
 
 void applyDepth(Depth* depth){
+	uint8_t* array;
 
+
+	array = depth->tiles;
+	
 }
 
 void initializeRandom(int seed)

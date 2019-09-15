@@ -7,9 +7,9 @@ void drawButtonWithText(uint24_t posX, uint8_t posY, uint8_t sizeX, uint8_t size
 	drawButtonFrame(posX, posY, sizeX, sizeY, hovered);
 }
 
-#define NORMAL_COLOR 10
-#define BRIGHT_COLOR 11
-#define DARK_COLOR   12
+#define NORMAL_COLOR 2
+#define BRIGHT_COLOR 3
+#define DARK_COLOR   4
 
 void drawButtonFrame(uint24_t posX, uint8_t posY, uint8_t sizeX, uint8_t sizeY, bool hovered)
 {

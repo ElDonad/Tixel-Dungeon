@@ -1,26 +1,15 @@
-Opened convpng.ini
+opened convpng.ini
 
---- Group titleScreenSprites (C) ---
-Building palette with [256] available indices ...
-Built palette with [15] indices.
-Palette quality : 100.00%
-Transparent Color Index : 0
-Transparent Color : 0x7C00
+--- titleScreenSprites (C) ---
+building palette with [256] available indices ...
+built palette with [12] indices.
+palette quality : 100.00%
+transparent color index : 0
+transparent color : 0x7C00
 2:
  arcs2 : 100.00%
  arcs1 : 100.00%
 
---- Group fonts (C) ---
-Building palette with [4] available indices ...
-Built palette with [4] indices.
-Palette quality : 100.00%
-Transparent Color Index : 0
-Transparent Color : 0x7C00
-1:
- font : 100.00%
+converted in 0 s
 
-exporting appvar: TDFONTS.8xp
-
-Converted in 0 s
-
-Finished!
+finished!

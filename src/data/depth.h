@@ -32,13 +32,20 @@ typedef enum
 
 }TilesType;
 
+typedef enum{
+	FIRE,
+	POISON,
+	THUNDER,
+	SUMMON
+}PressurePlateVariants;
+
 typedef struct
 {
 	uint8_t* tiles;
 	SimplifiedDepth* data;
 }Depth;
 
-Depth* initializeDepth(uint8_t* tiles);
+Depth* initializeDepth();
 bool roomCollide(Room*, Depth*);
 void test(Depth* test);
 bool corridorCollide(Path* cor1, Depth* depth);
